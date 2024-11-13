@@ -68,7 +68,7 @@ public class ContactForm extends FormLayout {
     }
 
     private void validateAndSave() {
-        if(binder.isValid()) {
+        if (binder.isValid()) {
             fireEvent(new SaveEvent(this, binder.getBean())); // <6>
         }
     }
@@ -118,6 +118,7 @@ public class ContactForm extends FormLayout {
     public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {
         return addListener(SaveEvent.class, listener);
     }
+
     public Registration addCloseListener(ComponentEventListener<CloseEvent> listener) {
         return addListener(CloseEvent.class, listener);
     }
