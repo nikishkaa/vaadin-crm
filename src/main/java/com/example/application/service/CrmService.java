@@ -2,6 +2,7 @@ package com.example.application.service;
 
 import com.example.application.data.entity.Company;
 import com.example.application.data.entity.Contact;
+import com.example.application.data.entity.Status;
 import com.example.application.data.repository.CompanyRepository;
 import com.example.application.data.repository.ContactRepository;
 import com.example.application.data.repository.StatusRepository;
@@ -52,6 +53,8 @@ public class CrmService {
         return companyRepository.findAll();
     }
 
-
+    public List<Status> findAllStatuses() {
+        return statusRepository.findAll();
+    }
 
 }
