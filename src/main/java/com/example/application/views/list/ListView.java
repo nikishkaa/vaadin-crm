@@ -42,6 +42,14 @@ public class ListView extends VerticalLayout {
         );
 
         updateList();
+        closeEditor();
+
+    }
+
+    private void closeEditor() {
+        form.setContact(null);
+        form.setVisible(false);
+        removeClassName("editing");
     }
 
     private void updateList() {
@@ -70,10 +78,16 @@ public class ListView extends VerticalLayout {
         filterText.addValueChangeListener(event -> updateList());
 
         Button addContactButton = new Button("Add contact");
+        addContactButton.addClickListener(event -> addContact());
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
         toolbar.addClassName("toolbar");
         return toolbar;
+    }
+
+    private void addContact() {
+        grid.asSingleSelect().clear();
+        editContact(new Contact());
     }
 
     private void configureGrid() {
@@ -83,6 +97,18 @@ public class ListView extends VerticalLayout {
         grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(column -> column.setAutoWidth(true));
+
+        grid.asSingleSelect().addValueChangeListener(event -> editContact(event.getValue()));
+    }
+
+    private void editContact(Contact contact) {
+        if (contact == null) {
+            closeEditor();
+        } else {
+            form.setContact(contact);
+            form.setVisible(true);
+            addClassName("editing");
+        }
     }
 
 }
